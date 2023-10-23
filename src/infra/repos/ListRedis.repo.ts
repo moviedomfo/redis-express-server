@@ -1,33 +1,27 @@
 import {LogFunctions} from "@common/helpers/logFunctions";
 import {IListRepository} from "@application/interfases/IListRepository";
 import {ListBE} from "@domain/Entities/ListBE";
-import { RedisClientOptions, createClient } from 'redis';
+import {RedisClientOptions, createClient} from "redis";
 import {DateFunctions} from "@common/helpers/dateFunctions";
 import {ExeptionFunctions} from "@common/helpers/ExeptionFunctions";
 import {rejects} from "assert";
-import { ListElementDto } from '@domain/DTOs/ListElementDto';
+import {ListElementDto} from "@domain/DTOs/ListElementDto";
 
 /**Persist to mongodb Persons */
 export default class ListRedisRepository implements IListRepository {
-
-
   public Push(req: ListElementDto): Promise<void> {
     return new Promise<void>(async (resolve, reject) => {
-    
-
       try {
-        
-       
         const client = createClient({
-
-          url :"redis://localhost:6379",
-          password: 'pletorico28',
+          url: "redis://localhost:6379",
+          password: "pletorico28",
         });
 
-        const redisArgs = `${req.Group}:${req.Group}${req.Data}`
+        const keys = `${req.Data}:${req.Key}`;
+        const element = `${req.Key}:${req.Data}`;
         await client.connect();
-      
-        await client.lPop(redisArgs)
+
+        await client.lPush(keys, element);
         resolve();
       } catch (err) {
         reject(err);
@@ -35,14 +29,31 @@ export default class ListRedisRepository implements IListRepository {
     });
   }
 
+  public Pop(group: string, key: string): Promise<ListBE> {
+    return new Promise<ListBE>(async (resolve, reject) => {
+      try {
+        const client = createClient({
+          url: "redis://localhost:6379",
+          password: "pletorico28",
+        });
 
-  Pop: (group: string, key: string) => Promise<ListBE>;
+        const keys = `${group}:${key}`;
+        await client.connect();
+
+        const res6 = await client.lPop(keys);
+
+        var list: ListBE = new ListBE("12");
+        resolve(list);
+      } catch (err) {
+        reject(err);
+      }
+    });
+  }
 
   public GetById(_id: string): Promise<ListBE> {
     return new Promise<ListBE>(async (resolve, reject) => {
       try {
-       
-        resolve(new ListBE('12'));
+        resolve(new ListBE("12"));
       } catch (error) {
         reject(error);
       }
@@ -57,11 +68,8 @@ export default class ListRedisRepository implements IListRepository {
   }
 
   public async GetAll(): Promise<ListBE[]> {
-   
     return new Promise<ListBE[]>(async (resolve, reject) => {
       try {
-    
-      
         resolve([]);
       } catch (err) {
         reject(err);

@@ -9,7 +9,7 @@ import swaggerUi from "swagger-ui-express";
 import {logsMiddle} from "@common/log.middlewar";
 import {productRouter} from "@infra/router/productPub.router";
 import {securitySettingsRouter} from "@infra/router/securitySettings.router";
-import {personRouter} from "./infra/router/list.router";
+import {listRouter} from "./infra/router/list.router";
 import {AppConstants} from "@common/CommonConstants";
 import "module-alias/register";
 import "dotenv/config";
@@ -64,7 +64,7 @@ app.use("/api/persons/", logsMiddle);
 //app.use(loadControllers("./infra/controllers/*.ts", {cwd: __dirname}));
 
 app.use("/api/products/", productRouter);
-app.use("/api/persons/", personRouter);
+app.use("/api/list/", listRouter);
 app.use("/api/securitySettings", securitySettingsRouter);
 // Attach the first Error handling Middleware
 app.use(notFoundHandler);
