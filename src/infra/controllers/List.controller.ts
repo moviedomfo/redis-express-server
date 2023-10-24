@@ -23,9 +23,10 @@ export default class ListController {
   public Pop = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const {group, key} = req.query;
-      await this.listService.Pop(group.toString(), key.toString());
+      const item = await this.listService.Pop(group.toString(), key.toString());
 
-      res.status(200).send();
+      if (item) res.status(200).send(item);
+      else res.status(204).send();
     } catch (e) {
       next(e);
     }

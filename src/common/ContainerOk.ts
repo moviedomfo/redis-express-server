@@ -1,10 +1,10 @@
 import {createContainer, asClass, InjectionMode} from "awilix";
 import ListController from "../infra/controllers/List.controller";
-import ProductPubController from "../infra/controllers/ProductPub.controller";
+import StringController from "../infra/controllers/String.controller";
 import ListService from "../application/List.service";
 import ListRepository from "../infra/repos/ListRedis.repo";
-import CommonCache from "../infra/repos/CommonCache.repo";
-import ProductService from "../application/Product.service";
+import StringnCacheRepo from "../infra/repos/StringCache.repo";
+import StringService from "../application/String.service";
 import SecuritySettingsController from "@infra/controllers/securitySettings.controller";
 /**
  * Dependency Injection (DI) Container implemented with awilix
@@ -16,19 +16,19 @@ const Container = createContainer({
 Container.register({
   listRepository: asClass(ListRepository).scoped(),
 
-  productService: asClass(ProductService).scoped(),
-  productPubController: asClass(ProductPubController).scoped(),
+  stringService: asClass(StringService).scoped(),
+  stringController: asClass(StringController).scoped(),
   listService: asClass(ListService).scoped(),
   listController: asClass(ListController).scoped(),
-  productRepo: asClass(CommonCache).scoped(),
+  stringRepo: asClass(StringnCacheRepo).scoped(),
   securitySettingsController: asClass(SecuritySettingsController).scoped(),
 });
 
 export const listService = Container.resolve("listService");
-export const productPubController = Container.resolve("productPubController");
-export const productService = Container.resolve("productService");
+export const stringController = Container.resolve("stringController");
+export const stringService = Container.resolve("stringService");
 export const listController = Container.resolve("listController");
 export const listRepository = Container.resolve("listRepository");
-export const productRepo = Container.resolve("productRepo");
+export const stringRepo = Container.resolve("stringRepo");
 
 export default Container;

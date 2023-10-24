@@ -6,22 +6,24 @@ import {DateFunctions} from "@common/helpers/dateFunctions";
 import {ExeptionFunctions} from "@common/helpers/ExeptionFunctions";
 import {rejects} from "assert";
 import {ListElementDto} from "@domain/DTOs/ListElementDto";
+import redisClient from "@infra/db/redisCnn";
 
 /**Persist to mongodb Persons */
 export default class ListRedisRepository implements IListRepository {
+
+  /**
+   * Insert or push item in stack 
+   * @param req 
+   * @returns 
+   */
   public Push(req: ListElementDto): Promise<void> {
     return new Promise<void>(async (resolve, reject) => {
       try {
-        const client = createClient({
-          url: "redis://localhost:6379",
-          password: "pletorico28",
-        });
-
-        const keys = `${req.Data}:${req.Key}`;
+        const keys = `${req.Group}:${req.Key}`;
         const element = `${req.Key}:${req.Data}`;
-        await client.connect();
+        //await redisClient.connect();
 
-        await client.lPush(keys, element);
+        await redisClient.lPush(keys, element);
         resolve();
       } catch (err) {
         reject(err);
@@ -29,21 +31,27 @@ export default class ListRedisRepository implements IListRepository {
     });
   }
 
+  /**
+   * Get and remove the last element from stack: applying LIFO pattern
+   * @param group 
+   * @param key 
+   * @returns 
+   */
   public Pop(group: string, key: string): Promise<ListBE> {
     return new Promise<ListBE>(async (resolve, reject) => {
       try {
-        const client = createClient({
-          url: "redis://localhost:6379",
-          password: "pletorico28",
-        });
-
         const keys = `${group}:${key}`;
-        await client.connect();
 
-        const res6 = await client.lPop(keys);
-
-        var list: ListBE = new ListBE("12");
-        resolve(list);
+        const res6 = await redisClient.lPop(keys);
+        if (res6) {
+          let listItem: ListBE = new ListBE(res6);
+          const s = keys.split(":");
+          listItem.Group = group;
+          listItem.Data = s[1];
+          listItem.Key = s[0];
+          resolve(listItem);
+        }
+        resolve(null);
       } catch (err) {
         reject(err);
       }

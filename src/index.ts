@@ -5,9 +5,8 @@ import helmet from "helmet";
 import morgan from "morgan";
 import {notFoundHandler} from "@common/not-found.middleware";
 import {ExpressErrorHandler} from "./common/ErrorHandle/ExpressErrorHandler";
-import swaggerUi from "swagger-ui-express";
 import {logsMiddle} from "@common/log.middlewar";
-import {productRouter} from "@infra/router/productPub.router";
+import {stringRouter} from "@infra/router/string.router";
 import {securitySettingsRouter} from "@infra/router/securitySettings.router";
 import {listRouter} from "./infra/router/list.router";
 import {AppConstants} from "@common/CommonConstants";
@@ -63,7 +62,7 @@ app.use("/api/persons/", logsMiddle);
 //loadContainer(app);
 //app.use(loadControllers("./infra/controllers/*.ts", {cwd: __dirname}));
 
-app.use("/api/products/", productRouter);
+app.use("/api/string/", stringRouter);
 app.use("/api/list/", listRouter);
 app.use("/api/securitySettings", securitySettingsRouter);
 // Attach the first Error handling Middleware
