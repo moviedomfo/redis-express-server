@@ -7,6 +7,7 @@ import {notFoundHandler} from "@common/not-found.middleware";
 import {ExpressErrorHandler} from "./common/ErrorHandle/ExpressErrorHandler";
 import {logsMiddle} from "@common/log.middlewar";
 import {stringRouter} from "@infra/router/string.router";
+import {hashesRouter} from "@infra/router/hashes.router";
 import {securitySettingsRouter} from "@infra/router/securitySettings.router";
 import {listRouter} from "./infra/router/list.router";
 import {AppConstants} from "@common/CommonConstants";
@@ -62,6 +63,7 @@ app.use("/api/persons/", logsMiddle);
 //loadContainer(app);
 //app.use(loadControllers("./infra/controllers/*.ts", {cwd: __dirname}));
 
+app.use("/api/hashes/", hashesRouter);
 app.use("/api/string/", stringRouter);
 app.use("/api/list/", listRouter);
 app.use("/api/securitySettings", securitySettingsRouter);

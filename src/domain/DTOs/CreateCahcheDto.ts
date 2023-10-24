@@ -5,3 +5,10 @@ export class CreateCahcheDto {
   
 }
 
+
+export class CreateHashesDto {
+  
+  public Key: string;
+  public Value: string;
+  
+}

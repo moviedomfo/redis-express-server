@@ -1,6 +1,9 @@
 import { ListElementDto } from "@domain/DTOs/ListElementDto";
 import {ListBE} from "@domain/Entities/ListBE";
 
+/**
+ * 
+ */
 export interface IListRepository {
   
   Push: (req: ListElementDto) => Promise<void>;
