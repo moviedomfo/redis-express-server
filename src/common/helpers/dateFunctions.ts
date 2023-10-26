@@ -90,4 +90,14 @@ export class DateFunctions {
     const convertida = dayjs(date).toISOString();
     return convertida;
   }
+
+  /**
+   * Get expirationTimestamp starting Date.now() 
+   * @param minutes 
+   * @returns 
+   */
+  public static getExpirationTimestamp(minutes: number): number {
+    const expirationTimestamp = Math.floor(Date.now() / 1000) + 60 * minutes; // Expire en 15 minutos
+    return expirationTimestamp;
+  }
 }
