@@ -22,15 +22,15 @@ By using this Redis Express Server, developers can grasp the versatility of Redi
 
 ```
 SetTTL = MaximumOneOf<{
-// (Expires in seconds)
-EX: number;
-// EX (Expires in seconds)
-PX: number;
-// Expires at a specific UNIX timestamp in seconds
-EXAT: number;
-// Expires at a specific UNIX timestamp in milliseconds
-PXAT: number;
-KEEPTTL: true, // Mantener el tiempo de vida actual
+    // (Expires in seconds)
+    EX: number;
+    // EX (Expires in seconds)
+    PX: number;
+    // Expires at a specific UNIX timestamp in seconds
+    EXAT: number;
+    // Expires at a specific UNIX timestamp in milliseconds
+    PXAT: number;
+    KEEPTTL: true, // Mantener el tiempo de vida actual
 }
 ```
 

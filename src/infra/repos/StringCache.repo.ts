@@ -6,6 +6,7 @@ const messagesTimeout: number = 22; //seconds
 /**Persist to mongodb Persons */
 export default class StringCacheRepo implements IStringRepository {
 
+
   public Set(key: string, value: string): Promise<string> {
     return new Promise<string>(async (resolve, reject) => {
       try {
@@ -55,19 +56,16 @@ export default class StringCacheRepo implements IStringRepository {
       }
     });
   }
-  public GetAll(): Promise<string[]> {
-    return new Promise<string[]>(async (resolve, reject) => {
-      try {
-        let l: string[] = [];
-        //bike:1 "Deimos" bike:2 "Ares" bike:3 "Vanth"
-        l.push("bike:1 Deimos");
-        l.push("bike:2 Ares");
-        l.push("bike:3 Vanth");
 
-        const res = await redisClient.MSET(l);
-        let list: string[] = [];
-        list.push(res);
-        resolve(list);
+  GetAll: () => Promise<string[]>;
+  
+  public Del(key: string): Promise<number> {
+    return new Promise<number>(async (resolve, reject) => {
+      try {
+
+       const res = await redisClient.del(key);
+
+        resolve(res);
       } catch (err) {
         reject(err);
       }
