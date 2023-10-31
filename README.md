@@ -16,7 +16,7 @@ The Redis Express Server is a project designed to showcase the diverse applicati
 
 By using this Redis Express Server, developers can grasp the versatility of Redis and learn how to harness its powerful features for various data storage and retrieval needs. Whether you are building a cache, managing unique values, implementing a stack, or working with structured data, Redis within a Docker container simplifies these operations and ensures data persistence. 🛡️
 
-## API : In this API web have the following controllers
+
 
 ## Inside the repo we have some concepts to apply
 
@@ -32,7 +32,7 @@ SetTTL = MaximumOneOf<{
 }
 ```
 
-## Samples
+### Samples
 
 ```
 client.set('myKey', 'muValue', {
@@ -77,6 +77,7 @@ type SetGuards = MaximumOneOf<{
     XX: true, // Establecer la clave solo si existe
 }>;
 ```
+## API : In this API web have the following controllers
 
 ### Strings
 
