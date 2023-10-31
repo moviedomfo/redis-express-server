@@ -82,6 +82,7 @@ type SetGuards = MaximumOneOf<{
 
 <h2 align=" /api/string/set </h2>
 
+```
 curl --location 'http://localhost:3016/api/string/set' \
 --header 'Content-Type: application/json' \
 --data '{
@@ -90,20 +91,26 @@ curl --location 'http://localhost:3016/api/string/set' \
 
 }'
 
+```
+
 <h3 align=" /api/string/get </h3>
 
 ```
 curl --location 'http://localhost:3016/api/string/1000'
+
 ```
 
 <h3 align=" /api/string/del </h3>
 
+```
 curl --location --request DELETE 'http://localhost:3016/api/string/1000'
+```
 
-### hashes/
+### Hashes
 
 <h3 align=" /api/hashes/set </h3>
 
+```
 - Simple value
   curl --location 'http://localhost:3016/api/hashes/set' \
   --header 'Content-Type: application/json' \
@@ -113,8 +120,11 @@ curl --location --request DELETE 'http://localhost:3016/api/string/1000'
 
 }'
 
+```
+
 - Object
 
+```
 curl --location 'http://localhost:3016/api/hashes/setObj' \
 --header 'Content-Type: application/json' \
 --data '{
@@ -127,24 +137,31 @@ curl --location 'http://localhost:3016/api/hashes/setObj' \
 "age": 29
 }
 }'
+```
 
 <h3 align=" /api/hashes/getObj </h3>
 
 - to get entery object
 
+```
 curl --location 'http://localhost:3016/api/hashes/getObj?key=3001'
+```
 
 <h3 align=" /api/hashes/get </h3>
 
 - to get spesific field
 
+```
 curl --location 'http://localhost:3016/api/hashes/get?key=2000&field=runners'
+```
 
 ### list/
+
 <h3 align=" /api/hashes/push </h3>
 
 - Push : adds a new element to the head of a lis
 
+```
 curl --location 'http://localhost:3016/api/list/push' \
 --header 'Content-Type: application/json' \
 --data '{
@@ -152,10 +169,14 @@ curl --location 'http://localhost:3016/api/list/push' \
 "Key":"10k",
 "Data":"102"
 }'
+```
 
 <h3 align=" /api/hashes/rpop </h3>
 - rPop : Treat a list like a queue FIFO
 
-
 <h3 align=" /api/hashes/lpop </h3>
 - rPop : Treat a list like a stack (LIFO) lastIn- Last out:
+
+```
+
+```
