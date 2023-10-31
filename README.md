@@ -80,7 +80,7 @@ type SetGuards = MaximumOneOf<{
 
 ### Strings
 
-<h2 align="center" /api/string/set </h2>
+<h2 align="center"> /api/string/set </h2>
 
 ```
 curl --location 'http://localhost:3016/api/string/set' \
@@ -92,14 +92,14 @@ curl --location 'http://localhost:3016/api/string/set' \
 }'
 ```
 
-<h3 align="center" /api/string/get </h3>
+<h3 align="center"> /api/string/get </h3>
 
 ```
 curl --location 'http://localhost:3016/api/string/1000'
 
 ```
 
-<h3 align="center" /api/string/del </h3>
+<h3 align="center"> /api/string/del </h3>
 
 ```
 curl --location --request DELETE 'http://localhost:3016/api/string/1000'
@@ -107,7 +107,7 @@ curl --location --request DELETE 'http://localhost:3016/api/string/1000'
 
 ### Hashes
 
-<h3 align="center" /api/hashes/set </h3>
+<h3 align="center"> /api/hashes/set </h3>
 
 - Simple value
 
@@ -138,7 +138,7 @@ curl --location 'http://localhost:3016/api/hashes/setObj' \
 }'
 ```
 
-<h3 align="center" /api/hashes/getObj </h3>
+<h3 align="center"> /api/hashes/getObj </h3>
 
 - to get entery object
 
@@ -146,7 +146,7 @@ curl --location 'http://localhost:3016/api/hashes/setObj' \
 curl --location 'http://localhost:3016/api/hashes/getObj?key=3001'
 ```
 
-<h3 align="center" /api/hashes/get </h3>
+<h3 align="center"> /api/hashes/get </h3>
 
 - to get spesific field
 
@@ -156,7 +156,7 @@ curl --location 'http://localhost:3016/api/hashes/get?key=2000&field=runners'
 
 ### list
 
-<h3 align="center" /api/hashes/push </h3>
+<h3 align="center"> /api/hashes/push </h3>
 
 - Push : adds a new element to the head of a lis
 
@@ -170,10 +170,10 @@ curl --location 'http://localhost:3016/api/list/push' \
 }'
 ```
 
-<h3 align="center" /api/hashes/rpop </h3>
+<h3 align="center"> /api/hashes/rpop </h3>
 - rPop : Treat a list like a queue FIFO
 
-<h3 align="center" /api/hashes/lpop </h3>
+<h3 align="center"> /api/hashes/lpop </h3>
 - rPop : Treat a list like a stack (LIFO) lastIn- Last out:
 
 ```
