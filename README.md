@@ -78,7 +78,7 @@ type SetGuards = MaximumOneOf<{
 }>;
 ```
 
-### Strings/
+### Strings
 
 <h2 align=" /api/string/set </h2>
 
@@ -90,7 +90,6 @@ curl --location 'http://localhost:3016/api/string/set' \
 "Value":""
 
 }'
-
 ```
 
 <h3 align=" /api/string/get </h3>
@@ -110,16 +109,16 @@ curl --location --request DELETE 'http://localhost:3016/api/string/1000'
 
 <h3 align=" /api/hashes/set </h3>
 
-```
 - Simple value
+
+```
   curl --location 'http://localhost:3016/api/hashes/set' \
   --header 'Content-Type: application/json' \
   --data '{
-  "Key":"1000",
-  "Value":"El resplandor"
+    "Key":"1000",
+    "Value":"El resplandor"
 
 }'
-
 ```
 
 - Object
@@ -128,14 +127,14 @@ curl --location --request DELETE 'http://localhost:3016/api/string/1000'
 curl --location 'http://localhost:3016/api/hashes/setObj' \
 --header 'Content-Type: application/json' \
 --data '{
-"Key":"3001",
+    "Key":"3001",
 
-"Value" : {
-"name": "Marcelo",
-"surname": "Oviedo",
-"company": "Konecta",
-"age": 29
-}
+    "Value" : {
+    "name": "Marcelo",
+    "surname": "Oviedo",
+    "company": "Konecta",
+    "age": 29
+    }
 }'
 ```
 
