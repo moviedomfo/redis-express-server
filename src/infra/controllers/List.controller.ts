@@ -20,10 +20,21 @@ export default class ListController {
     }
   };
 
-  public Pop = async (req: Request, res: Response, next: NextFunction) => {
+  public LPop = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const {group, key} = req.query;
-      const item = await this.listService.Pop(group.toString(), key.toString());
+      const item = await this.listService.LPop(group.toString(), key.toString());
+
+      if (item) res.status(200).send(item);
+      else res.status(204).send();
+    } catch (e) {
+      next(e);
+    }
+  };
+  public RPop = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const {group, key} = req.query;
+      const item = await this.listService.RPop(group.toString(), key.toString());
 
       if (item) res.status(200).send(item);
       else res.status(204).send();
@@ -32,27 +43,6 @@ export default class ListController {
     }
   };
 
-  public GetAll = async (_req: Request, res: Response, next: NextFunction) => {
-    try {
-      const result = await this.listService.GetAll();
-
-      if (result) res.status(200).send(result);
-      else res.status(204).send();
-    } catch (e) {
-      next(e);
-    }
-  };
-
-  public GetById = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const id = req.params.id;
-      const result = await this.listService.GetById(id);
-      if (result) res.status(200).send(result);
-      else res.status(204).send();
-    } catch (e) {
-      next(e);
-    }
-  };
 
   public ClearAll = async (_req: Request, res: Response, next: NextFunction) => {
     try {

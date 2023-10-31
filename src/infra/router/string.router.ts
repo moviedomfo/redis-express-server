@@ -11,3 +11,4 @@ const stringController: StringController = Container.resolve("stringController")
 stringRouter.post("/set",  stringController.Set);
 stringRouter.get("/",  stringController.GetAll);
 stringRouter.get("/:id",  stringController.Get);
+stringRouter.delete("/:id",  stringController.Del);

@@ -1,11 +1,11 @@
-import {LogFunctions} from "@common/helpers/logFunctions";
-import {IListRepository} from "@application/interfases/IListRepository";
-import {ListBE} from "@domain/Entities/ListBE";
-import {RedisClientOptions, createClient} from "redis";
-import {DateFunctions} from "@common/helpers/dateFunctions";
-import {ExeptionFunctions} from "@common/helpers/ExeptionFunctions";
-import {rejects} from "assert";
-import {ListElementDto} from "@domain/DTOs/ListElementDto";
+import { LogFunctions } from "@common/helpers/logFunctions";
+import { IListRepository } from "@application/interfases/IListRepository";
+import { ListBE } from "@domain/Entities/ListBE";
+import { RedisClientOptions, createClient } from "redis";
+import { DateFunctions } from "@common/helpers/dateFunctions";
+import { ExeptionFunctions } from "@common/helpers/ExeptionFunctions";
+import { rejects } from "assert";
+import { ListElementDto } from "@domain/DTOs/ListElementDto";
 import redisClient from "@infra/db/redisCnn";
 
 /**Persist to mongodb Persons */
@@ -32,12 +32,12 @@ export default class ListRedisRepository implements IListRepository {
   }
 
   /**
-   * Get and remove the last element from stack: applying LIFO pattern
+   * Get and remove the last element from queue: applying FIFO pattern (first in, first out)
    * @param group 
    * @param key 
    * @returns 
    */
-  public Pop(group: string, key: string): Promise<ListBE> {
+  public LPop(group: string, key: string): Promise<ListBE> {
     return new Promise<ListBE>(async (resolve, reject) => {
       try {
         const keys = `${group}:${key}`;
@@ -58,27 +58,42 @@ export default class ListRedisRepository implements IListRepository {
     });
   }
 
-  public GetById(_id: string): Promise<ListBE> {
+
+  /**
+   * Get and remove the last element from stack: applying FIFO pattern (first in, first out)
+   * @param group 
+   * @param key 
+   * @returns 
+   */
+  public RPop(group: string, key: string): Promise<ListBE> {
     return new Promise<ListBE>(async (resolve, reject) => {
       try {
-        resolve(new ListBE("12"));
-      } catch (error) {
-        reject(error);
+        const keys = `${group}:${key}`;
+
+        const res6 = await redisClient.rPop(keys);
+        if (res6) {
+          let listItem: ListBE = new ListBE(res6);
+          const s = keys.split(":");
+          listItem.Group = group;
+          listItem.Data = s[1];
+          listItem.Key = s[0];
+          resolve(listItem);
+        }
+        resolve(null);
+      } catch (err) {
+        reject(err);
       }
     });
   }
 
+  /**
+   * 
+   * @returns 
+   */
   public async ClearAll(): Promise<void> {
-    return new Promise<void>((resolve, _reject) => {
-      //PersonsSchema.cl.deleteMany({});
-      resolve();
-    });
-  }
-
-  public async GetAll(): Promise<ListBE[]> {
-    return new Promise<ListBE[]>(async (resolve, reject) => {
+    return new Promise<void>(async (resolve, reject) => {
       try {
-        resolve([]);
+        resolve();
       } catch (err) {
         reject(err);
       }

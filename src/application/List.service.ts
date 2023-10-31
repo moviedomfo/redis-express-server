@@ -30,12 +30,12 @@ export default class ListService implements IListService {
     }
   }
 
-  public async Pop(group: string, key: string): Promise<ListBE> {
-    return this._listRepository.Pop(group, key);
+  public async LPop(group: string, key: string): Promise<ListBE> {
+    return this._listRepository.LPop(group, key);
   }
-  GetById: (id: string) => Promise<ListBE>;
-  public async GetAll(): Promise<ListBE[]> {
-    return await this._listRepository.GetAll();
+  
+  public async RPop(group: string, key: string): Promise<ListBE> {
+    return this._listRepository.RPop(group, key);
   }
 
   public async ClearAll(): Promise<void> {

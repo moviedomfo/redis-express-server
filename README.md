@@ -1,10 +1,10 @@
-# Redis Express Server for Demonstrating Redis Usage with Docker 🚀
+<h1 align="center">Redis Express Server for Demonstrating Redis Usage with Docker 🚀 </h1>
 
 ## Description
 
 The Redis Express Server is a project designed to showcase the diverse applications of Redis, a popular in-memory data store, when deployed within a Docker container. This server exposes a set of APIs to interact with Redis, illustrating how various data structures such as Strings, Sets, Stacks, and Hashes can be utilized effectively.
 
-## Features
+<h2 align="center">Features</h2>
 
 1. **String Operations 📜**: This Redis server provides APIs for adding and retrieving string values. You can store and fetch single values efficiently, making it suitable for caching and simple data storage needs.
 
@@ -16,32 +16,32 @@ The Redis Express Server is a project designed to showcase the diverse applicati
 
 By using this Redis Express Server, developers can grasp the versatility of Redis and learn how to harness its powerful features for various data storage and retrieval needs. Whether you are building a cache, managing unique values, implementing a stack, or working with structured data, Redis within a Docker container simplifies these operations and ensures data persistence. 🛡️
 
-# Setting Strings
+## API : In this API web have the following controllers
+
+## Inside the repo we have some concepts to apply
 
 - SetOptions = SetTTL & SetGuards & SetCommonOptions
 
 ```
 SetTTL = MaximumOneOf<{
-    // (Expires in seconds)
     EX: number;
-    // EX (Expires in seconds)
     PX: number;
-    // Expires at a specific UNIX timestamp in seconds
     EXAT: number;
-    // Expires at a specific UNIX timestamp in milliseconds
     PXAT: number;
     KEEPTTL: true, // Mantener el tiempo de vida actual
 }
 ```
 
+## Samples
+
 ```
-client.set('miClave', 'miValor', {
+client.set('myKey', 'muValue', {
 EX: 60 \* 15 // Expira en 15 minutos
 });
 ```
 
 ```
-client.set('miClave', 'miValor', {
+client.set('myKey', 'muValue', {
 PX: 1000 _ 60 _ 15 // Expira en 15 minutos en milisegundos
 });
 ```
@@ -50,7 +50,7 @@ PX: 1000 _ 60 _ 15 // Expira en 15 minutos en milisegundos
 
 ```
 const expirationTimestamp = Math.floor(Date.now() / 1000) + 60 \* 15; // Expire en 15 minutos
-client.set('miClave', 'miValor', {
+client.set('myKey', 'muValue', {
 EXAT: expirationTimestamp
 });
 ```
@@ -60,7 +60,7 @@ EXAT: expirationTimestamp
 ```
 const expirationTimestamp = Date.now() + 1000 _ 60 _ 15; // Expira en 15 minutos en milisegundos
 
-client.set('miClave', 'miValor', {
+client.set('myKey', 'muValue', {
 PXAT: expirationTimestamp
 });
 ```
@@ -68,12 +68,94 @@ PXAT: expirationTimestamp
 - KEEPTTL: Este campo se utiliza para mantener el tiempo de vida actual de una clave, en lugar de establecer uno nuevo.
 
 ```
-client.set('miClave', 'miNuevoValor', {
+client.set('myKey', 'miNuevoValor', {
 KEEPTTL: true
 });
 
 type SetGuards = MaximumOneOf<{
-NX: true, // Establecer la clave solo si no existe
-XX: true, // Establecer la clave solo si existe
+    NX: true, // Establecer la clave solo si no existe
+    XX: true, // Establecer la clave solo si existe
 }>;
 ```
+
+### Strings/
+
+<h2 align=" /api/string/set </h2>
+
+curl --location 'http://localhost:3016/api/string/set' \
+--header 'Content-Type: application/json' \
+--data '{
+"Key":"1000",
+"Value":""
+
+}'
+
+<h3 align=" /api/string/get </h3>
+
+```
+curl --location 'http://localhost:3016/api/string/1000'
+```
+
+<h3 align=" /api/string/del </h3>
+
+curl --location --request DELETE 'http://localhost:3016/api/string/1000'
+
+### hashes/
+
+<h3 align=" /api/hashes/set </h3>
+
+- Simple value
+  curl --location 'http://localhost:3016/api/hashes/set' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "Key":"1000",
+  "Value":"El resplandor"
+
+}'
+
+- Object
+
+curl --location 'http://localhost:3016/api/hashes/setObj' \
+--header 'Content-Type: application/json' \
+--data '{
+"Key":"3001",
+
+"Value" : {
+"name": "Marcelo",
+"surname": "Oviedo",
+"company": "Konecta",
+"age": 29
+}
+}'
+
+<h3 align=" /api/hashes/getObj </h3>
+
+- to get entery object
+
+curl --location 'http://localhost:3016/api/hashes/getObj?key=3001'
+
+<h3 align=" /api/hashes/get </h3>
+
+- to get spesific field
+
+curl --location 'http://localhost:3016/api/hashes/get?key=2000&field=runners'
+
+### list/
+<h3 align=" /api/hashes/push </h3>
+
+- Push : adds a new element to the head of a lis
+
+curl --location 'http://localhost:3016/api/list/push' \
+--header 'Content-Type: application/json' \
+--data '{
+"Group":"runners",
+"Key":"10k",
+"Data":"102"
+}'
+
+<h3 align=" /api/hashes/rpop </h3>
+- rPop : Treat a list like a queue FIFO
+
+
+<h3 align=" /api/hashes/lpop </h3>
+- rPop : Treat a list like a stack (LIFO) lastIn- Last out:

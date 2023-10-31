@@ -46,13 +46,20 @@ export default class StringController {
     }
   };
 
-  //public ClearAll = async (req: Request, res: Response, next: NextFunction) => {
+  /**
+   * 
+   * @param req Remove strings values and another value types sotored with this key . It does not matter if is hashed, list, etc 
+   * @param res 1 removed item existed, 0 not existed
+   * @param next 
+   */
+  public Del = async (req: Request, res: Response, next: NextFunction) => {
 
-  //   try {
-  //     const result = await this.productService.ClearAll();
-  //     res.status(200).send(true);
-  //   } catch (e) {
-  //     next(e);
-  //   }
-  // }
+     try {
+      const id = req.params.id;
+      const result = await this.stringService.Del(id);
+      res.send(result.toString());
+    } catch (e) {
+      next(e);
+    }
+  }
 }

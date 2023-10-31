@@ -8,24 +8,24 @@ export interface IListService {
   Push: (req: ListElementDto) => Promise<void>;
 
   /**
-   * removes and returns an element from the head of a list e.g :'bikes:repairs'
+   * Removes and returns an element from the from the bottom of the list (queue)
+   * Treat a list like a queue FIFO 
    * @group : string
    * @key : string
    */
-  Pop: (group: string, key: string) => Promise<ListBE>;
+  LPop: (group: string, key: string) => Promise<ListBE>;
 
   /**
-   *
-   * @returns
+   * Removes and returns an element from the head of a list 
+   * treat a list like a stack (LIFO)
+   * @group : string
+   * @key : string
    */
-  GetAll: () => Promise<ListBE[]>;
+  RPop: (group: string, key: string) => Promise<ListBE>;
 
-  /**
-   *
-   * @param id Provider Id
-   * @returns
-   */
-  GetById: (id: string) => Promise<ListBE>;
+
+
+
 
   ClearAll: () => Promise<void>;
 }
