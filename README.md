@@ -154,7 +154,7 @@ curl --location 'http://localhost:3016/api/hashes/getObj?key=3001'
 curl --location 'http://localhost:3016/api/hashes/get?key=2000&field=runners'
 ```
 
-### list/
+### list
 
 <h3 align=" /api/hashes/push </h3>
 
