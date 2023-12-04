@@ -14,7 +14,7 @@ export default class StringController {
       const itemCache: CreateCahcheDto = req.body as CreateCahcheDto;
  
       await this.stringService.Set(itemCache.Key, itemCache.Value);
-      res.status(200).send();
+      res.status(200).send();                      
       //else res.status(403).send();
     } catch (e) {
       next(e);

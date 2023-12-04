@@ -9,6 +9,8 @@ import SecuritySettingsController from "@infra/controllers/securitySettings.cont
 import HashesRepo from "@infra/repos/Hashes.repo";
 import HashesController from "@infra/controllers/Hashes.controller";
 import HashesService from "@application/Hashes.service";
+import PelsoftService from "@application/Pelsoft.service";
+import PelsoftController from "@infra/controllers/Pelsoft.controller";
 /**
  * Dependency Injection (DI) Container implemented with awilix
  */
@@ -29,6 +31,9 @@ Container.register({
   hashesRepo: asClass(HashesRepo).scoped(),
 
   securitySettingsController: asClass(SecuritySettingsController).scoped(),
+
+  pelsoftService : asClass(PelsoftService).scoped(),
+  pelsoftController : asClass(PelsoftController).scoped(),
 });
 
 export const hashesRepo = Container.resolve("hashesRepo");

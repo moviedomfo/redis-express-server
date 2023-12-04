@@ -14,19 +14,19 @@ services:
       net_eco:
         ipv4_address: 172.20.0.3
 
-  platon:
-    image: moviedomfo/redis_express
-    container_name: platon
-    ports:
-      - 3026:3016
-    environment:
-      - SERVER_NAME="Platon comerce ${PORT}"
-      # - PORT=3016
-    volumes:
-      - /e/volumens/redis_express:/app/files
-    networks:
-      net_eco:
-        ipv4_address: 172.20.0.4
+  # platon:
+  #   image: moviedomfo/redis_express
+  #   container_name: platon
+  #   ports:
+  #     - 3026:3016
+  #   environment:
+  #     - SERVER_NAME="Platon comerce ${PORT}"
+  #     # - PORT=3016
+  #   volumes:
+  #     - /e/volumens/redis_express:/app/files
+  #   networks:
+  #     net_eco:
+  #       ipv4_address: 172.20.0.4
 
   # comerce-nginx:
   #   container_name: comerce-nginx
