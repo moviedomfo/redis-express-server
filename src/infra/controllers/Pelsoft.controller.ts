@@ -8,13 +8,13 @@ import PelsoftService from "@application/Pelsoft.service";
  */
 
 export default class PelsoftController {
-  constructor(private readonly service: PelsoftService) { }
+  constructor(private readonly pelsoftService: PelsoftService) { }
 
   public Create = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const itemCache: CreateCahcheReq = req.body as CreateCahcheReq;
 
-      await this.service.Create(itemCache.Value, itemCache.id, itemCache.Value);
+      await this.pelsoftService.Create(itemCache.collection, itemCache.id, JSON.stringify(itemCache.value));
       res.status(200).send();
       //else res.status(403).send();
     } catch (e) {
@@ -24,10 +24,11 @@ export default class PelsoftController {
 
   public Get = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const id = req.params.id;
-      const collection = req.params.collection;
 
-      const result = await this.service.Get(collection, id);
+
+      const { id, collection } = req.query;
+      if (!collection || !id) throw new Error("Invalid parameters");
+      const result = await this.pelsoftService.Get(collection.toString(), id.toString());
 
       if (result) res.status(200).send(result);
       else res.status(204).send();
@@ -46,10 +47,11 @@ export default class PelsoftController {
   public Delete = async (req: Request, res: Response, next: NextFunction) => {
 
     try {
-      const id = req.params.id;
-      const collection = req.params.collection;
 
-      const result = await this.service.Del(collection, id);
+
+      const { id, collection } = req.query;
+      if (!collection || !id) throw new Error("Invalid parameters");
+      const result = await this.pelsoftService.Del(collection.toString(), id.toString());
       res.send(result.toString());
     } catch (e) {
       next(e);

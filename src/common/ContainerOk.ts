@@ -1,4 +1,5 @@
-import {createContainer, asClass, InjectionMode} from "awilix";
+
+import { createContainer, asClass, InjectionMode } from "awilix";
 import ListController from "../infra/controllers/List.controller";
 import StringController from "../infra/controllers/String.controller";
 import ListService from "../application/List.service";
@@ -11,6 +12,7 @@ import HashesController from "@infra/controllers/Hashes.controller";
 import HashesService from "@application/Hashes.service";
 import PelsoftService from "@application/Pelsoft.service";
 import PelsoftController from "@infra/controllers/Pelsoft.controller";
+import PelsoftCacheRepo from "@infra/repos/PelsoftCache.repo";
 /**
  * Dependency Injection (DI) Container implemented with awilix
  */
@@ -25,6 +27,7 @@ Container.register({
   stringService: asClass(StringService).scoped(),
   stringController: asClass(StringController).scoped(),
   stringRepo: asClass(StringCacheRepo).scoped(),
+  pelsoftRepo: asClass(PelsoftCacheRepo).scoped(),
 
   hashesService: asClass(HashesService).scoped(),
   hashesController: asClass(HashesController).scoped(),
@@ -32,14 +35,16 @@ Container.register({
 
   securitySettingsController: asClass(SecuritySettingsController).scoped(),
 
-  pelsoftService : asClass(PelsoftService).scoped(),
-  pelsoftController : asClass(PelsoftController).scoped(),
+  pelsoftService: asClass(PelsoftService).scoped(),
+  pelsoftController: asClass(PelsoftController).scoped(),
+
 });
 
 export const hashesRepo = Container.resolve("hashesRepo");
 export const hashesController = Container.resolve("hashesController");
 export const hashesService = Container.resolve("hashesService");
 
+export const pelsoftRepo = Container.resolve("pelsoftRepo");
 export const stringRepo = Container.resolve("stringRepo");
 export const stringController = Container.resolve("stringController");
 export const stringService = Container.resolve("stringService");
@@ -48,6 +53,7 @@ export const stringService = Container.resolve("stringService");
 export const listRepository = Container.resolve("listRepository");
 export const listService = Container.resolve("listService");
 export const listController = Container.resolve("listController");
-
+export const pelsoftController = Container.resolve("pelsoftController");
+export const pelsoftService = Container.resolve("pelsoftService");
 
 export default Container;

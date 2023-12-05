@@ -1,18 +1,20 @@
+
 import express from "express";
 import path from "path";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
-import {notFoundHandler} from "@common/not-found.middleware";
-import {ExpressErrorHandler} from "./common/ErrorHandle/ExpressErrorHandler";
-import {logsMiddle} from "@common/log.middlewar";
-import {stringRouter} from "@infra/router/string.router";
-import {hashesRouter} from "@infra/router/hashes.router";
-import {securitySettingsRouter} from "@infra/router/securitySettings.router";
-import {listRouter} from "./infra/router/list.router";
-import {AppConstants} from "@common/CommonConstants";
+import { notFoundHandler } from "@common/not-found.middleware";
+import { ExpressErrorHandler } from "./common/ErrorHandle/ExpressErrorHandler";
+import { logsMiddle } from "@common/log.middlewar";
+import { stringRouter } from "@infra/router/string.router";
+import { hashesRouter } from "@infra/router/hashes.router";
+import { securitySettingsRouter } from "@infra/router/securitySettings.router";
+import { listRouter } from "./infra/router/list.router";
+import { AppConstants } from "@common/CommonConstants";
 import "module-alias/register";
 import "dotenv/config";
+import { pelsoftRouter } from "@infra/router/pelsoft.router";
 
 const packageJson = require("./../package.json");
 
@@ -32,7 +34,7 @@ app.set("view engine", "html");
  */
 app.use(helmet());
 app.use(cors());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(morgan("short"));
@@ -62,7 +64,7 @@ app.get("/", function (_req, res) {
 app.use("/api/persons/", logsMiddle);
 //loadContainer(app);
 //app.use(loadControllers("./infra/controllers/*.ts", {cwd: __dirname}));
-
+app.use("/api/pelsoft/", pelsoftRouter);
 app.use("/api/hashes/", hashesRouter);
 app.use("/api/string/", stringRouter);
 app.use("/api/list/", listRouter);
